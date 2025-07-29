@@ -42,7 +42,7 @@ def word_freq_by_day_and_type(df, target_words,
     
     return freq_dfs
 
-def main():
+def main(uploaded_file):
     """
     just use this part to load in data and do some basic analysis on certain things
     library wordcloud is just presentation stuff
@@ -65,7 +65,7 @@ def main():
     - i love you
     """
     # CLEAN DATA
-    conversation = pd.read_csv("./Messages - Angela _ Anaya.csv")
+    conversation = pd.read_csv(uploaded_file)
     # incoming = angela, outgoing = aaron
     trimed_converasation = conversation.loc[:, ["Message Date", "Type", "Text"]]
     # clean the data
@@ -94,9 +94,9 @@ def main():
 
     return [angela_pet, aaron_pet, angela_joke, aaron_joke, angela_char, aaron_char]
 
-def combined():
+def combined(uploaded_file):
 
-    df_list = main()
+    df_list = main(uploaded_file)
 
     angela_pet = df_list[0]
     aaron_pet = df_list[1]
@@ -128,13 +128,13 @@ def combined():
 
     return [combined_pet, combined_joke, combined_char]
 
-def search(targets):
+def search(uploaded_file, targets):
 
     if isinstance(targets, str):
         targets = [targets]
 
     # CLEAN DATA
-    conversation = pd.read_csv("./Messages - Angela _ Anaya.csv")
+    conversation = pd.read_csv(uploaded_file)
     # incoming = angela, outgoing = aaron
     trimed_converasation = conversation.loc[:, ["Message Date", "Type", "Text"]]
     # clean the data

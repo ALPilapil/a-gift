@@ -7,6 +7,8 @@ from main import main, combined, search
 # everything is top down
 st.title("For my favorite girl")
 
+uploaded_file = st.file_uploader("Choose a CSV file", type=["csv"])
+
 # keep track of variables we'll need here and what operation
 # target_word - frequency over time, a graph
 
@@ -16,7 +18,7 @@ st.write("# Word Analysis")
 st.button("Reset", type="primary")
 def pair():
     if st.button("See seperate"):
-        df_list = main()
+        df_list = main(uploaded_file)
         
         # iterate through in pairs
         for i in range(0, len(df_list), 2):
@@ -39,7 +41,7 @@ def pair():
 
 def together():
     if st.button("See combined"):
-        combined_list = combined()
+        combined_list = combined(uploaded_file)
 
         for df in combined_list:
             df["date"] = pd.to_datetime(df["date"])
@@ -50,7 +52,7 @@ def together():
 def find():
     x = st.text_input("Search for a specific word: ")
     if x:
-        df = search(x)
+        df = search(uploaded_file, x)
 
         df["date"] = pd.to_datetime(df["date"])
         df.set_index("date", inplace=True)
